@@ -1,0 +1,46 @@
+﻿@model Microsoft.EntityFrameworkCore.DbSet<User>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1> Таблица пользователей </h1>
+    <form asp-action="Block" asp-controller="Account" method="post">
+        <button class="btn btn-warning" type="submit" name="action"><i class="fas fa-ban"></i></button>
+        <button class="btn btn-success" type="submit" formaction="~/Account/Unblock"><i class="far fa-check-circle"></i></button>
+        <button class="btn btn-danger" type="submit" formaction="~/Account/Delete"><i class="fas fa-user-minus"></i></button>
+        <table class="table mt-2">
+            <thead>
+            <tr>
+                <th scope="col">
+                    Выделить все/Снять выделение
+                    <input type="checkbox" class="all" data-id="dl" onchange="toggle(this)">
+                </th>
+                <th scope="col">Id</th>
+                <th scope="col">Email</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Дата регистрации</th>
+                <th scope="col">Дата последнего логина</th>
+                <th scope="col">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                foreach (var user in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="selectedUsersId" id="@user.Id" value="@user.Id"></td>
+                        <th scope="row">@user.Id</th>
+                        <td>@user.Email</td>
+                        <td>@user.Name</td>
+                        <td>@user.RegistrationDate</td>
+                        <td>@user.LastLoginDate</td>
+                        <td>@user.Status</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </form>
+</div>
